@@ -1,0 +1,177 @@
+/* ==========================================================================
+   PROPERTYMANAGER - Mobile List Cards & UI Containers
+   ========================================================================== */
+
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.item-card:hover {
+    border-color: var(--color-blue);
+    box-shadow: var(--shadow-md);
+}
+
+.card-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.card-date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-navy);
+}
+
+.card-subtitle {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.card-main-info {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.card-amount {
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-navy);
+}
+
+.card-amount.income-val { color: var(--color-green); }
+.card-amount.expense-val { color: var(--color-red); }
+
+.card-meta-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    background: #F1F5F9;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+.card-description {
+    font-size: 0.875rem;
+    color: var(--color-text-main);
+    background: var(--color-bg);
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    line-height: 1.4;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #F1F5F9;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: var(--transition);
+}
+
+.action-btn-edit {
+    color: var(--color-blue);
+}
+
+.action-btn-edit:hover {
+    background-color: var(--color-blue-light);
+}
+
+.action-btn-delete {
+    color: var(--color-red);
+}
+
+.action-btn-delete:hover {
+    background-color: var(--color-red-light);
+}
+
+/* Building Recovery Card */
+.building-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.building-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-navy);
+}
+
+.building-address {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 14px;
+}
+
+.building-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: var(--color-bg);
+    padding: 12px;
+    border-radius: var(--radius-md);
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+.building-stat-item .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.building-stat-item .val {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-navy);
+}

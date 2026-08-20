@@ -1,0 +1,57 @@
+/* ==========================================================================
+   PROPERTYMANAGER - Data Tables (Desktop/Tablet)
+   ========================================================================== */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.data-table th {
+    background-color: #F8FAFC;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #F1F5F9;
+    color: var(--color-text-main);
+    vertical-align: middle;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.table-amount {
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+.table-actions-cell {
+    text-align: right;
+    white-space: nowrap;
+}

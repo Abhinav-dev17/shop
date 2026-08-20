@@ -1,0 +1,134 @@
+/* ==========================================================================
+   PROPERTYMANAGER - Sidebar Navigation (Desktop)
+   ========================================================================== */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    background-color: var(--color-navy);
+    color: var(--color-text-white);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-header {
+    padding: 24px 20px 20px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 0.05em;
+}
+
+.brand-subtitle {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--color-blue);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 20px 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nav-section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 14px 12px 6px 12px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.sidebar-link:hover {
+    background-color: var(--color-navy-hover);
+    color: #FFFFFF;
+}
+
+.sidebar-link.active {
+    background-color: var(--color-blue);
+    color: #FFFFFF;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(47, 95, 222, 0.35);
+}
+
+.sidebar-link .icon {
+    font-size: 1.1rem;
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #FFFFFF;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.user-role {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: capitalize;
+}
+
+.btn-logout {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    color: var(--color-red);
+    background-color: rgba(220, 38, 38, 0.15);
+}
