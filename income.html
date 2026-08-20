@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Log — PropertyManager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="sidebar"></aside>
+
+        <!-- Mobile Top Header -->
+        <header id="mobile-header" class="mobile-header"></header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page-body">
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="page-title">Shop Income Log</h1>
+                        <div class="page-subtitle">Record and edit manual shop rent & income receipts</div>
+                    </div>
+                    <button id="add-income-btn" class="btn btn-primary">+ Add Income</button>
+                </div>
+
+                <!-- Total Income Header Banner -->
+                <div class="financial-card card-income" style="margin-bottom: 20px;">
+                    <div class="financial-label">Total Income Logged (<span id="income-period-label">This Month</span>)</div>
+                    <div class="financial-amount income" id="income-total-banner">₹0</div>
+                </div>
+
+                <!-- Filter & Search Bar -->
+                <div class="filter-bar">
+                    <div class="filter-item">
+                        <select id="income-filter-building" class="form-control">
+                            <option value="all">All Buildings</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="income-filter-shop" class="form-control">
+                            <option value="all">All Shops</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="income-filter-period" class="form-control">
+                            <option value="this-month" selected>This Month</option>
+                            <option value="last-month">Last Month</option>
+                            <option value="this-year">This Year</option>
+                            <option value="all-time">All Time</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Income Mobile List Cards Container -->
+                <div id="income-list-container" class="card-list">
+                    <div class="empty-state">
+                        <div class="loading-spinner loading-spinner-blue" style="margin: 0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="bottom-nav"></nav>
+    </div>
+
+    <!-- Income Modal (Add / Edit Bottom Sheet) -->
+    <div id="income-modal" class="modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title" id="income-modal-title">Record Shop Income</h3>
+                <button class="modal-close-btn" id="income-modal-close">✕</button>
+            </div>
+            <form id="income-form">
+                <input type="hidden" id="income-id" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Select Shop <span class="required">*</span></label>
+                        <select id="income-shop-select" class="form-control" required>
+                            <option value="">Select Shop...</option>
+                        </select>
+                    </div>
+
+                    <!-- Selected Shop Preview Card -->
+                    <div id="selected-shop-info" style="display: none; background: var(--color-blue-light); padding: 10px 14px; border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.85rem;">
+                        <div>🏢 <strong id="info-bldg-name">Building A</strong> — Shop <strong id="info-shop-num">101</strong></div>
+                        <div style="color: var(--color-text-muted); margin-top: 2px;">Standard Monthly Rent: <span id="info-standard-rent" class="mono text-green" style="font-weight:700;">₹15,000</span></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Receipt Date <span class="required">*</span></label>
+                            <input type="date" id="income-date" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Amount Received ₹ <span class="required">*</span></label>
+                            <input type="number" id="income-amount" class="form-control" placeholder="Enter amount (e.g. 15000)" min="0" step="any" required />
+                            <div class="form-label-hint">Fully editable amount</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Description / Period</label>
+                            <input type="text" id="income-description" class="form-control" placeholder="e.g. May Income / Advance payment" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Payment Method <span class="required">*</span></label>
+                            <select id="income-method-select" class="form-control" required>
+                                <option value="UPI" selected>UPI</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Card">Card</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes (Optional)</label>
+                        <textarea id="income-notes" class="form-control" placeholder="Additional details or reference numbers..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="income-modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Income</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/income.js"></script>
+</body>
+</html>

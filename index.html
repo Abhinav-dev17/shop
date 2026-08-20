@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropertyManager — Commercial Shop Rent & Property Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <style>
+        body {
+            background-color: var(--color-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .login-card {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 420px;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            animation: fadeIn 0.4s ease;
+        }
+        .brand-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .brand-title-main {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--color-navy);
+            letter-spacing: 0.04em;
+        }
+        .brand-sub-main {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="brand-header">
+            <div class="brand-title-main">PROPERTYMANAGER</div>
+            <div class="brand-sub-main">Commercial Property Management</div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="init-loading" style="text-align: center; padding: 20px 0;">
+            <div class="loading-spinner loading-spinner-blue" style="margin: 0 auto 12px auto; width: 32px; height: 32px;"></div>
+            <p style="color: var(--color-text-muted); font-size: 0.875rem;">Connecting to Firestore...</p>
+        </div>
+
+        <!-- First-Time Super Owner Setup Form -->
+        <form id="setup-form" style="display: none;">
+            <div style="background: var(--color-blue-light); padding: 12px 14px; border-radius: var(--radius-md); margin-bottom: 20px; font-size: 0.85rem; color: var(--color-blue); font-weight: 500;">
+                👋 <strong>First Time Setup</strong><br>Create your Super Owner account to begin managing your commercial properties.
+            </div>
+            <div class="form-group">
+                <label class="form-label">Super Owner Username <span class="required">*</span></label>
+                <input type="text" id="setup-username" class="form-control" placeholder="e.g. admin" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password <span class="required">*</span></label>
+                <input type="password" id="setup-password" class="form-control" placeholder="Create strong password" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm Password <span class="required">*</span></label>
+                <input type="password" id="setup-confirm" class="form-control" placeholder="Re-enter password" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 12px;">Create Super Owner Account</button>
+        </form>
+
+        <!-- Standard Login Form -->
+        <form id="login-form" style="display: none;">
+            <div class="form-group">
+                <label class="form-label">Username <span class="required">*</span></label>
+                <input type="text" id="login-username" class="form-control" placeholder="Enter your username" required autocomplete="username" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password <span class="required">*</span></label>
+                <input type="password" id="login-password" class="form-control" placeholder="Enter password" required autocomplete="current-password" />
+            </div>
+            <button type="submit" id="login-submit-btn" class="btn btn-primary btn-block" style="margin-top: 16px;">Sign In</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { checkAppInitialization, createSuperOwner, loginUser } from "./js/auth.js";
+        import { getCurrentUser, showToast, PAGE_ACCESS } from "./js/common.js";
+
+        // Check if user is already logged in
+        const currentUser = getCurrentUser();
+        if (currentUser) {
+            const firstAllowed = Object.keys(PAGE_ACCESS).find(p => PAGE_ACCESS[p].includes(currentUser.role)) || "dashboard";
+            window.location.href = firstAllowed + ".html";
+        } else {
+            initAppCheck();
+        }
+
+        async function initAppCheck() {
+            const loadingEl = document.getElementById("init-loading");
+            const setupForm = document.getElementById("setup-form");
+            const loginForm = document.getElementById("login-form");
+
+            try {
+                const initialized = await checkAppInitialization();
+                loadingEl.style.display = "none";
+
+                if (!initialized) {
+                    setupForm.style.display = "block";
+                } else {
+                    loginForm.style.display = "block";
+                }
+            } catch (err) {
+                loadingEl.style.display = "none";
+                loginForm.style.display = "block";
+                showToast("Note: Running in standalone prototype mode.", "info");
+            }
+        }
+
+        // Setup Submit Handler
+        document.getElementById("setup-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("setup-username").value.trim();
+            const password = document.getElementById("setup-password").value.trim();
+            const confirm = document.getElementById("setup-confirm").value.trim();
+
+            if (password !== confirm) {
+                showToast("Passwords do not match.", "error");
+                return;
+            }
+            if (password.length < 6) {
+                showToast("Password must be at least 6 characters.", "warning");
+                return;
+            }
+
+            try {
+                const user = await createSuperOwner(username, password);
+                showToast("Super Owner created! Please log in.", "success");
+                document.getElementById("setup-form").style.display = "none";
+                document.getElementById("login-form").style.display = "block";
+                document.getElementById("login-username").value = username;
+            } catch (err) {
+                showToast(err.message || "Failed to initialize account.", "error");
+            }
+        });
+
+        // Login Submit Handler
+        document.getElementById("login-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("login-username").value.trim();
+            const password = document.getElementById("login-password").value.trim();
+            const submitBtn = document.getElementById("login-submit-btn");
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Signing in...";
+
+            try {
+                const session = await loginUser(username, password);
+                showToast(`Welcome back, ${session.username}!`, "success");
+                setTimeout(() => {
+                    const firstAllowed = Object.keys(PAGE_ACCESS).find(p => PAGE_ACCESS[p].includes(session.role)) || "dashboard";
+                    window.location.href = firstAllowed + ".html";
+                }, 500);
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Sign In";
+                showToast(err.message || "Invalid credentials.", "error");
+            }
+        });
+    </script>
+</body>
+</html>

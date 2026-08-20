@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — PropertyManager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="sidebar"></aside>
+
+        <!-- Mobile Top Header -->
+        <header id="mobile-header" class="mobile-header"></header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page-body">
+                <!-- Greeting & Filter Bar -->
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="greeting-text" id="greeting-title">Good morning, Owner</h1>
+                        <div class="greeting-date" id="greeting-date">Commercial Property Overview</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <select id="dashboard-period-filter" class="form-control" style="width: auto; min-width: 150px;">
+                            <option value="this-month" selected>This Month</option>
+                            <option value="last-month">Last Month</option>
+                            <option value="this-year">This Year</option>
+                            <option value="all-time">All Time</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Main Physical Inventory Cards Grid -->
+                <div class="metrics-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-title">Total Buildings</span>
+                            <div class="stat-icon-wrapper icon-blue">🏢</div>
+                        </div>
+                        <div class="stat-value" id="stat-total-buildings">-</div>
+                        <div class="stat-subtext">Commercial Properties</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-title">Total Shops</span>
+                            <div class="stat-icon-wrapper icon-blue">🏪</div>
+                        </div>
+                        <div class="stat-value" id="stat-total-shops">-</div>
+                        <div class="stat-subtext">Total Commercial Units</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-title">Occupied Shops</span>
+                            <div class="stat-icon-wrapper icon-green">🟢</div>
+                        </div>
+                        <div class="stat-value text-green" id="stat-occupied-shops">-</div>
+                        <div class="stat-subtext" id="stat-occupied-pct">0% occupancy</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-title">Vacant Shops</span>
+                            <div class="stat-icon-wrapper icon-orange">🟠</div>
+                        </div>
+                        <div class="stat-value text-orange" id="stat-vacant-shops">-</div>
+                        <div class="stat-subtext" id="stat-vacant-pct">0% vacant</div>
+                    </div>
+                </div>
+
+                <!-- Financial Performance Cards Grid -->
+                <div class="financial-grid">
+                    <div class="financial-card card-income">
+                        <div class="financial-label">Income Received (<span id="filter-period-label">This Month</span>)</div>
+                        <div class="financial-amount income" id="fin-income">₹0</div>
+                        <div class="stat-subtext" style="margin-top: 6px;">Manual income collection log</div>
+                    </div>
+
+                    <div class="financial-card card-expense">
+                        <div class="financial-label">Expenses (<span id="filter-period-label-exp">This Month</span>)</div>
+                        <div class="financial-amount expense" id="fin-expenses">₹0</div>
+                        <div class="stat-subtext" style="margin-top: 6px;">Operating & maintenance expenses</div>
+                    </div>
+
+                    <div class="financial-card card-net">
+                        <div class="financial-label">Net Income (<span id="filter-period-label-net">This Month</span>)</div>
+                        <div class="financial-amount net" id="fin-net">₹0</div>
+                        <div class="stat-subtext" style="margin-top: 6px;">Income minus expenses</div>
+                    </div>
+
+                    <div class="financial-card card-construction">
+                        <div class="financial-label">Total Construction Cost</div>
+                        <div class="financial-amount construction" id="fin-construction">₹0</div>
+                        <div class="stat-subtext" style="margin-top: 6px;">All buildings capital investment</div>
+                    </div>
+                </div>
+
+                <!-- Construction Cost Recovery Overview -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Overall Construction Cost Recovery</h2>
+                        <span class="badge badge-blue" id="overall-recovery-badge">0% Recovered</span>
+                    </div>
+                    <p style="color: var(--color-text-muted); font-size: 0.85rem; margin-bottom: 14px;">
+                        Tracks cumulative net recovery across all buildings (All Time Net Income / Total Construction Cost).
+                    </p>
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span id="recovery-progress-label">Net Recovery: ₹0 of ₹0</span>
+                            <span id="recovery-pct-val" class="mono">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="overall-recovery-bar" class="progress-bar-fill fill-green" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div id="recovery-profit-msg" style="margin-top: 10px; font-weight: 600; font-size: 0.875rem;"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="bottom-nav"></nav>
+    </div>
+
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

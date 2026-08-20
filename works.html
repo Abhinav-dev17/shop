@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works & Maintenance — PropertyManager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="sidebar"></aside>
+
+        <!-- Mobile Top Header -->
+        <header id="mobile-header" class="mobile-header"></header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page-body">
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="page-title">Works & Maintenance</h1>
+                        <div class="page-subtitle">Track repairs, construction & maintenance projects</div>
+                    </div>
+                    <button id="add-work-btn" class="btn btn-primary">+ Add Work</button>
+                </div>
+
+                <!-- Filter & Search Bar -->
+                <div class="filter-bar">
+                    <div class="filter-item">
+                        <select id="work-filter-building" class="form-control">
+                            <option value="all">All Buildings</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="work-filter-status" class="form-control">
+                            <option value="all">All Statuses</option>
+                            <option value="Planned">Planned</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="filter-item" style="flex: 2; min-width: 200px;">
+                        <div class="search-input-wrapper">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="work-search-input" class="form-control" placeholder="Search description, WRK-ID or contractor..." />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Works Mobile Cards Container -->
+                <div id="works-list-container" class="card-list">
+                    <div class="empty-state">
+                        <div class="loading-spinner loading-spinner-blue" style="margin: 0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="bottom-nav"></nav>
+    </div>
+
+    <!-- Work Modal (Add / Edit) -->
+    <div id="work-modal" class="modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title" id="work-modal-title">Record Maintenance Work</h3>
+                <button class="modal-close-btn" id="work-modal-close">✕</button>
+            </div>
+            <form id="work-form">
+                <input type="hidden" id="work-id" />
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Building <span class="required">*</span></label>
+                            <select id="work-building-select" class="form-control" required>
+                                <option value="">Select Building...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Shop (Optional)</label>
+                            <select id="work-shop-select" class="form-control">
+                                <option value="">Entire Building (No specific shop)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Work Description <span class="required">*</span></label>
+                        <input type="text" id="work-description" class="form-control" placeholder="e.g. Changed roof sheets / Painted Building A / Repaired shutter" required />
+                        <div class="form-label-hint">Free text description of repair or construction work</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Estimated Cost ₹</label>
+                            <input type="number" id="work-est-cost" class="form-control" placeholder="e.g. 50000" min="0" step="any" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Actual Cost ₹</label>
+                            <input type="number" id="work-act-cost" class="form-control" placeholder="e.g. 48000" min="0" step="any" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Contractor Name</label>
+                            <input type="text" id="work-contractor-name" class="form-control" placeholder="e.g. ABC Works" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contractor Phone</label>
+                            <input type="tel" id="work-contractor-phone" class="form-control" placeholder="e.g. 9876543210" maxlength="10" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" id="work-start-date" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Completion Date</label>
+                            <input type="date" id="work-end-date" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Work Status <span class="required">*</span></label>
+                        <select id="work-status-select" class="form-control" required>
+                            <option value="Planned">Planned</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed" selected>Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes (Optional)</label>
+                        <textarea id="work-notes" class="form-control" placeholder="Additional notes or materials list..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="work-modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Work Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/works.js"></script>
+</body>
+</html>

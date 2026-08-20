@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses — PropertyManager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="sidebar"></aside>
+
+        <!-- Mobile Top Header -->
+        <header id="mobile-header" class="mobile-header"></header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page-body">
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="page-title">Operating Expenses</h1>
+                        <div class="page-subtitle">Track building expenses, utility bills & operational costs</div>
+                    </div>
+                    <button id="add-expense-btn" class="btn btn-primary">+ Add Expense</button>
+                </div>
+
+                <!-- Total Expenses Banner -->
+                <div class="financial-card card-expense" style="margin-bottom: 20px;">
+                    <div class="financial-label">Total Expenses (<span id="expense-period-label">This Month</span>)</div>
+                    <div class="financial-amount expense" id="expense-total-banner">₹0</div>
+                </div>
+
+                <!-- Filter & Search Bar -->
+                <div class="filter-bar">
+                    <div class="filter-item">
+                        <select id="expense-filter-building" class="form-control">
+                            <option value="all">All Buildings</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="expense-filter-period" class="form-control">
+                            <option value="this-month" selected>This Month</option>
+                            <option value="last-month">Last Month</option>
+                            <option value="this-year">This Year</option>
+                            <option value="all-time">All Time</option>
+                        </select>
+                    </div>
+                    <div class="filter-item" style="flex: 2; min-width: 200px;">
+                        <div class="search-input-wrapper">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="expense-search-input" class="form-control" placeholder="Search expense description, vendor..." />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expense Mobile Cards Container -->
+                <div id="expenses-list-container" class="card-list">
+                    <div class="empty-state">
+                        <div class="loading-spinner loading-spinner-blue" style="margin: 0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="bottom-nav"></nav>
+    </div>
+
+    <!-- Expense Modal (Add / Edit) -->
+    <div id="expense-modal" class="modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title" id="expense-modal-title">Record Operating Expense</h3>
+                <button class="modal-close-btn" id="expense-modal-close">✕</button>
+            </div>
+            <form id="expense-form">
+                <input type="hidden" id="expense-id" />
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Expense Date <span class="required">*</span></label>
+                            <input type="date" id="expense-date" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Building <span class="required">*</span></label>
+                            <select id="expense-building-select" class="form-control" required>
+                                <option value="">Select Building...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Expense Description <span class="required">*</span></label>
+                        <input type="text" id="expense-description" class="form-control" placeholder="e.g. Security salary / Paint purchase / Electricity bill" required />
+                        <div class="form-label-hint">Free text description of expense</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Amount Paid ₹ <span class="required">*</span></label>
+                            <input type="number" id="expense-amount" class="form-control" placeholder="e.g. 25000" min="0" step="any" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Payment Method <span class="required">*</span></label>
+                            <select id="expense-method-select" class="form-control" required>
+                                <option value="UPI" selected>UPI</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Card">Card</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Paid To / Vendor</label>
+                        <input type="text" id="expense-paid-to" class="form-control" placeholder="e.g. ABC Hardware / Power Board" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes (Optional)</label>
+                        <textarea id="expense-notes" class="form-control" placeholder="Bill number or notes..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="expense-modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Expense</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/expenses.js"></script>
+</body>
+</html>

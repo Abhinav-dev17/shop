@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management — PropertyManager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="sidebar"></aside>
+
+        <!-- Mobile Top Header -->
+        <header id="mobile-header" class="mobile-header"></header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page-body">
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="page-title">Staff & User Management</h1>
+                        <div class="page-subtitle">Manage user accounts and permission roles</div>
+                    </div>
+                    <button id="add-staff-btn" class="btn btn-primary">+ Add Staff Account</button>
+                </div>
+
+                <!-- Staff List Cards Container -->
+                <div id="staff-list-container" class="card-list">
+                    <div class="empty-state">
+                        <div class="loading-spinner loading-spinner-blue" style="margin: 0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="bottom-nav"></nav>
+    </div>
+
+    <!-- Staff Modal (Add Staff) -->
+    <div id="staff-modal" class="modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Staff Account</h3>
+                <button class="modal-close-btn" id="staff-modal-close">✕</button>
+            </div>
+            <form id="staff-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Username <span class="required">*</span></label>
+                        <input type="text" id="staff-username" class="form-control" placeholder="e.g. manager1" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password <span class="required">*</span></label>
+                        <input type="password" id="staff-password" class="form-control" placeholder="Create user password" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Role & Permissions <span class="required">*</span></label>
+                        <select id="staff-role-select" class="form-control" required>
+                            <option value="owner">Owner (Full system access, no staff management)</option>
+                            <option value="manager" selected>Manager (Shops, Income, Works, Expenses)</option>
+                            <option value="accountant">Accountant (Dashboard, Income, Expenses, Reports)</option>
+                            <option value="reportsonly">Reports Viewer (Read-only Reports)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="staff-modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Staff User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/staff.js"></script>
+</body>
+</html>

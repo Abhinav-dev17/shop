@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Reports — PropertyManager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="sidebar"></aside>
+
+        <!-- Mobile Top Header -->
+        <header id="mobile-header" class="mobile-header"></header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page-body">
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="page-title">Financial & Occupancy Reports</h1>
+                        <div class="page-subtitle">Historical statement analysis & CSV export</div>
+                    </div>
+                </div>
+
+                <!-- Date Filter Bar -->
+                <div class="filter-bar">
+                    <div class="filter-item">
+                        <label class="form-label" style="margin-bottom: 4px;">Time Period</label>
+                        <select id="report-period-select" class="form-control">
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="this-week">This Week</option>
+                            <option value="this-month" selected>This Month</option>
+                            <option value="this-year">This Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div id="custom-date-container" class="filter-item" style="display: none; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <label class="form-label" style="margin-bottom: 4px;">Start Date</label>
+                            <input type="date" id="report-start-date" class="form-control" />
+                        </div>
+                        <div>
+                            <label class="form-label" style="margin-bottom: 4px;">End Date</label>
+                            <input type="date" id="report-end-date" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Summary Cards -->
+                <div class="financial-grid">
+                    <div class="financial-card card-income">
+                        <div class="financial-label">Total Income</div>
+                        <div class="financial-amount income" id="rpt-income">₹0</div>
+                        <div class="stat-subtext" id="rpt-income-count">0 records</div>
+                    </div>
+                    <div class="financial-card card-expense">
+                        <div class="financial-label">Total Expenses</div>
+                        <div class="financial-amount expense" id="rpt-expenses">₹0</div>
+                        <div class="stat-subtext" id="rpt-expense-count">0 records</div>
+                    </div>
+                    <div class="financial-card card-net">
+                        <div class="financial-label">Net Income</div>
+                        <div class="financial-amount net" id="rpt-net">₹0</div>
+                        <div class="stat-subtext">Income - Expenses</div>
+                    </div>
+                    <div class="financial-card card-construction">
+                        <div class="financial-label">Occupancy Rate</div>
+                        <div class="financial-amount construction" id="rpt-occupancy-rate">0%</div>
+                        <div class="stat-subtext" id="rpt-occupancy-details">0 of 0 occupied</div>
+                    </div>
+                </div>
+
+                <!-- Income Statement Table / Cards Section -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Income Statement Log</h2>
+                        <button id="export-income-csv" class="btn btn-secondary btn-sm">📥 Export Income CSV</button>
+                    </div>
+                    
+                    <!-- Desktop Table -->
+                    <div class="table-responsive desktop-only">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Building</th>
+                                    <th>Shop</th>
+                                    <th>Description</th>
+                                    <th>Method</th>
+                                    <th style="text-align: right;">Amount ₹</th>
+                                </tr>
+                            </thead>
+                            <tbody id="income-table-tbody">
+                                <tr><td colspan="6" style="text-align:center;">Loading statement...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mobile Cards View -->
+                    <div id="income-cards-mobile" class="card-list mobile-only"></div>
+                </div>
+
+                <!-- Expense Statement Table / Cards Section -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Expense Log</h2>
+                        <button id="export-expenses-csv" class="btn btn-secondary btn-sm">📥 Export Expenses CSV</button>
+                    </div>
+
+                    <!-- Desktop Table -->
+                    <div class="table-responsive desktop-only">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Building</th>
+                                    <th>Description</th>
+                                    <th>Paid To</th>
+                                    <th>Method</th>
+                                    <th style="text-align: right;">Amount ₹</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expense-table-tbody">
+                                <tr><td colspan="6" style="text-align:center;">Loading statement...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mobile Cards View -->
+                    <div id="expense-cards-mobile" class="card-list mobile-only"></div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="bottom-nav"></nav>
+    </div>
+
+    <script type="module" src="js/reports.js"></script>
+</body>
+</html>

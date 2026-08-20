@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shops Inventory — PropertyManager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="sidebar"></aside>
+
+        <!-- Mobile Top Header -->
+        <header id="mobile-header" class="mobile-header"></header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="page-body">
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="page-title">Shop Inventory</h1>
+                        <div class="page-subtitle">Manage commercial shop spaces & occupancy status</div>
+                    </div>
+                    <button id="add-shop-btn" class="btn btn-primary">+ Add Shop</button>
+                </div>
+
+                <!-- Filter & Search Bar -->
+                <div class="filter-bar">
+                    <div class="filter-item">
+                        <select id="shop-filter-building" class="form-control">
+                            <option value="all">All Buildings</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="shop-filter-status" class="form-control">
+                            <option value="all">All Statuses</option>
+                            <option value="Occupied">Occupied</option>
+                            <option value="Vacant">Vacant</option>
+                            <option value="Under Work">Under Work</option>
+                        </select>
+                    </div>
+                    <div class="filter-item" style="flex: 2; min-width: 200px;">
+                        <div class="search-input-wrapper">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="shop-search-input" class="form-control" placeholder="Search shop number (e.g. 101, G-1)..." />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shop Cards List Container -->
+                <div id="shops-list-container" class="card-list">
+                    <div class="empty-state">
+                        <div class="loading-spinner loading-spinner-blue" style="margin: 0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="bottom-nav"></nav>
+    </div>
+
+    <!-- Shop Modal (Add / Edit) -->
+    <div id="shop-modal" class="modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title" id="shop-modal-title">Add New Shop</h3>
+                <button class="modal-close-btn" id="shop-modal-close">✕</button>
+            </div>
+            <form id="shop-form">
+                <input type="hidden" id="shop-id" />
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Shop Number <span class="required">*</span></label>
+                            <input type="text" id="shop-number" class="form-control" placeholder="e.g. 101, 101A, G-1" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Building <span class="required">*</span></label>
+                            <select id="shop-building-select" class="form-control" required>
+                                <option value="">Select Building...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Floor</label>
+                            <input type="text" id="shop-floor" class="form-control" placeholder="e.g. Ground, 1st, 2nd" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Area (sqft)</label>
+                            <input type="number" id="shop-area" class="form-control" placeholder="e.g. 250" min="0" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Monthly Rent ₹ <span class="required">*</span></label>
+                            <input type="number" id="shop-rent" class="form-control" placeholder="e.g. 15000" min="0" required />
+                            <div class="form-label-hint">Reference monthly rent rate</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Security Deposit ₹</label>
+                            <input type="number" id="shop-deposit" class="form-control" placeholder="e.g. 50000" min="0" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Electricity Meter #</label>
+                            <input type="text" id="shop-elec-meter" class="form-control" placeholder="e.g. EM101" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Water Meter #</label>
+                            <input type="text" id="shop-water-meter" class="form-control" placeholder="e.g. WM101" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Occupancy Status <span class="required">*</span></label>
+                        <select id="shop-status-select" class="form-control" required>
+                            <option value="Occupied">Occupied</option>
+                            <option value="Vacant" selected>Vacant</option>
+                            <option value="Under Work">Under Work</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="shop-modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Shop</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/shops.js"></script>
+</body>
+</html>
